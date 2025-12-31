@@ -3,9 +3,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();
 
-let a =10;
-console.log(a);
-
 const uri = process.env.MONGO_URI;
 
 export const connect = async () => {
