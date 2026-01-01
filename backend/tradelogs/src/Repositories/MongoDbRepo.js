@@ -34,7 +34,7 @@ class MongoDbRepository extends UserRepository {
 
     async addJobsHis(data){
         try{
-            await DataInsertionTS.updateOne({jobName : "TradeHistoryJobs"},{ $set: { lastProcessedAt: data } });
+            await DataInsertionTS.updateOne({jobName : "TradeHistoryJobs"},{ $set: { lastProcessedAt: data } },{ upsert: true });
             console.log("Jobs data updated successfully.");
         } catch(error) {
             console.error("Error updating jobs data: ", error);

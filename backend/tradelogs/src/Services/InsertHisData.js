@@ -1,12 +1,11 @@
-import tradeHistory from "../External/DeltaApiRequests.js";
-
 class InsertHisData {
-    constructor(userRepo){
+    constructor(userRepo,externalApiData){
         this.userRepo = userRepo;
+        this.externalApiData = externalApiData;
     }
 
     async addHisData(){
-        const res =await tradeHistory();
+        const res =await this.externalApiData.tradeHistoryData();
         if (!res || res.length === 0) return;
         res.sort( (a,b) => b.created_at.localeCompare(a.created_at) );
         const jobRes = await this.userRepo.getJobsHis();
