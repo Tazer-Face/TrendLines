@@ -2,15 +2,15 @@ import routes from './Routes/TradingLogsRoutes.js';
 import express from 'express';
 const app = express();
 import {connect, disconnect} from './Config/MongoDbConnections.js';
-import {scheduleDataInsertion,runNow} from './Jobs/TradeHisJobs.js'; 
+import {scheduledJobs} from './Container/TradeDataContainer.js'
 
 import dotenv from 'dotenv';
 dotenv.config()
 
 connect();
 
-runNow();
-scheduleDataInsertion();
+scheduledJobs.runNow();
+scheduledJobs.scheduleDataInsertion();
 
 app.use(express.json());
 app.use('/api', routes);
