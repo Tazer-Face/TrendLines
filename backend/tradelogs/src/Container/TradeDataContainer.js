@@ -19,7 +19,6 @@ export const insertService = new InsertHisData(repo,tradeHis);
 export const getJobHisService = new GetJobHistory(repo);
 
 //Scheduled Jobs
-
 export const scheduledJobs = TradeHisJobs(getJobHisService,insertService)
 
 //Controller
