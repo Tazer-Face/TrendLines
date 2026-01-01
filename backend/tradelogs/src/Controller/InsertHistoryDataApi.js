@@ -1,5 +1,5 @@
 class InsertExternalHisData {
-    constructor({insertService}){
+    constructor(insertService){
         this.insertService = insertService;
     }
 

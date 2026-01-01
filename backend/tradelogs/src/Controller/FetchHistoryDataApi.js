@@ -1,5 +1,5 @@
 class GetAllData {
-    constructor({getService}) {
+    constructor(getService) {
         this.getService = getService;
     }
     async getAllData(req, res) {

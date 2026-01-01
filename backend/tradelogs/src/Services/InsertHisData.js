@@ -18,8 +18,7 @@ class InsertHisData {
                     trade.meta_data.avg_exit_price != null &&
                     trade.meta_data.pnl != null &&
                     trade.product.contract_type === "perpetual_futures" &&
-                    trade.size != null && ( !lastProcessedAt || trade.created_at > lastProcessedAt)
-                )
+                    trade.size != null && ( !lastProcessedAt || trade.created_at > lastProcessedAt))
                 .map( trade =>{
                     return {
                         product_symbol: trade.product_symbol,
