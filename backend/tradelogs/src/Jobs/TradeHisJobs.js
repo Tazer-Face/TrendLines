@@ -1,15 +1,14 @@
 import cron from 'node-cron';
 
-export function TradeHisJobs(getJobHis,insertService){
+export function TradeHisJobs(insertService){
 
     const runNow = async ()=>{
-            const jobRes = await getJobHis.JobsHis();
-            const lastProcessedAt = jobRes && jobRes.length > 0 ? jobRes[0].lastProcessedAt : null;
-            if (!lastProcessedAt){
+            
                 try{
                     let res = await insertService.addHisData();
+
                     if ( res && res.data === 0){
-                        console.log("Data already exists")
+                        console.log("No new data to insert")
                     }
                     else{
                         console.log("Data insertion completed.");
@@ -18,15 +17,11 @@ export function TradeHisJobs(getJobHis,insertService){
                 catch(err){
                     console.error("Error during initial data insertion: ", err);
                 }
-            }
-            else{
-                return;
-            }
             
     }
 
     const scheduleDataInsertion = ()=>{
-        cron.schedule("*/30 * * * *", 
+        cron.schedule("*/1 * * * *", 
             async () =>{
                 try{
                     let res = await insertService.addHisData();
@@ -34,7 +29,7 @@ export function TradeHisJobs(getJobHis,insertService){
                         console.log("No new data to insert")
                     }
                     else{
-                        console.log("Data insertion completed.");
+                        console.log("New data inserted successfully.");
                     }
                 }catch(err){
                     console.error("Error during scheduled data insertion: ", err);
