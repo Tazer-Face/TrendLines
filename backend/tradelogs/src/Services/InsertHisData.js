@@ -7,7 +7,6 @@ class InsertHisData {
     async addHisData(){
         const res =await this.externalApiData.tradeHistoryData();
         if (!res || res.length === 0) return;
-        res.sort( (a,b) => b.created_at.localeCompare(a.created_at) );
         const jobRes = await this.userRepo.getJobsHis();
         const lastProcessedAt = jobRes && jobRes.length > 0 ? jobRes[0].lastProcessedAt : null;
         const data = res
@@ -19,6 +18,7 @@ class InsertHisData {
                     trade.meta_data.pnl != null &&
                     trade.product.contract_type === "perpetual_futures" &&
                     trade.size != null && ( !lastProcessedAt || trade.created_at > lastProcessedAt))
+                .sort( (a,b) => b.created_at.localeCompare(a.created_at) )
                 .map( trade =>{
                     return {
                         product_symbol: trade.product_symbol,
