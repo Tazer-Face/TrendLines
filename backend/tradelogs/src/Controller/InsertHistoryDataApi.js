@@ -6,7 +6,7 @@ class InsertExternalHisData {
     async addHisData(req,res){
        try{
         await this.insertService.addHisData();
-        return res.status(200).send({ success: true, message: "Historic data inserted successfully" });
+        return res.status(201).send({ success: true, message: "Historic data inserted successfully" });
        }
        catch(err){
         return res.status(500).send({ success: false, message: "Error inserting historic data", error: err.message });

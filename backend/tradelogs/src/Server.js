@@ -1,5 +1,7 @@
 import routes from './Routes/TradingLogsRoutes.js';
 import express from 'express';
+import cors from "cors";
+
 const app = express();
 import {connect, disconnect} from './Config/MongoDbConnections.js';
 import {scheduledJobs} from './Container/TradeDataContainer.js'
@@ -12,6 +14,7 @@ connect();
 scheduledJobs.runNow();
 scheduledJobs.scheduleDataInsertion();
 
+app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
 

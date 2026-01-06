@@ -21,7 +21,7 @@ export function TradeHisJobs(insertService){
     }
 
     const scheduleDataInsertion = ()=>{
-        cron.schedule("*/1 * * * *", 
+        cron.schedule("*/30 * * * *", 
             async () =>{
                 try{
                     let res = await insertService.addHisData();

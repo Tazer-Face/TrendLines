@@ -18,7 +18,7 @@ class InsertHisData {
                     trade.meta_data.pnl != null &&
                     trade.product.contract_type === "perpetual_futures" &&
                     trade.size != null && ( !lastProcessedAt || trade.created_at > lastProcessedAt))
-                .sort( (a,b) => b.created_at.localeCompare(a.created_at) )
+                .sort( (a,b) => new Date(b.created_at) - new Date(a.created_at) )
                 .map( trade =>{
                     return {
                         product_symbol: trade.product_symbol,
