@@ -63,6 +63,7 @@ export const useAxios = (method,url, params={}) => {
         }
         else if(err.request){
             setError({
+              data : err.request,
               message : "No response from server"
             }); 
             console.log("No response from server")

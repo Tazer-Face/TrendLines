@@ -5,9 +5,11 @@ import Footer from '../components/Footer'
 
 const MainLayout = () => {
   return (
-    <div style={{backgroundColor :"#f9fafb"}}>
+    <div style={{backgroundColor :"#f9fafb" ,display: "flex", flexDirection: "column", minHeight: "100dvh" ,overflowY: "hidden" , overflowX : "hidden"}}>
         <Header/>
-        <Outlet/>
+        <div style={{flex: 1}} >
+          <Outlet/>
+        </div>
         <Footer/>
     </div>
   )
