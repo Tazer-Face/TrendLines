@@ -13,7 +13,8 @@ const dataSchema = mongoose.Schema({
     roe: String,
     paid_commission : String,
     size: Number,
-    type : String
+    type : String,
+    stratergy : String
 })
 
 export default mongoose.model('HistoricData', dataSchema);

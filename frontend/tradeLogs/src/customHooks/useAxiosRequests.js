@@ -33,13 +33,14 @@ export const useAxios = (method,url, params={}) => {
           message : null,
           errorCodeMessage : null
         });
-  async function fetchData(){
+  const fetechParams = params;
+  async function fetchData(fetechParams={}){
     try{
         setLoading(true);
         const res = method === "get" ? await axios.get(url,params) : 
                     (
-                      method === "post" ? await axios.post(url,params) : 
-                      (method === "put" ? await axios.put(url,params) : await axios.delete(url,params)) 
+                      method === "post" ? await axios.post(url,fetechParams) : 
+                      (method === "put" ? await axios.put(url,fetechParams) : await axios.delete(url,fetechParams)) 
                     )
          
         setResult({
@@ -48,6 +49,10 @@ export const useAxios = (method,url, params={}) => {
           message : res.data.message
         });
         
+        setError(prev =>({
+            ...prev,message : null
+          })
+        )
     }
     catch(err){
 
@@ -74,6 +79,11 @@ export const useAxios = (method,url, params={}) => {
               });
             console.log("Error : ",err);
         }
+
+        setResult(prev =>({
+            ...prev,data : []
+          })
+        )
     }
     finally{
       setLoading(false);
@@ -81,7 +91,7 @@ export const useAxios = (method,url, params={}) => {
   }
     
   useEffect(()=>{
-    fetchData();
+    fetchData(fetechParams);
   },[method,url])
   return {result,loading,error,refetch : fetchData}
 };

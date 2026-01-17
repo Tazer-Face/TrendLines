@@ -33,7 +33,8 @@ class InsertHisData {
                         roe: trade.meta_data.roe,
                         paid_commission : trade.paid_commission,
                         size: trade.size,
-                        type : trade.side === "buy" ? "Short" : "Long" 
+                        type : trade.side === "buy" ? "Short" : "Long" ,
+                        stratergy: ""
                     }
                 })
 
