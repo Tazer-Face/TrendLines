@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { TradesDataContext } from './TradesDataContext';
-import { useAxios } from '../customHooks/useAxiosRequests';
+import { useAxiosQuery } from '../customHooks/useAxiosRequestsQuery.js';
 
 const TradesDataProvider = ({children}) => {
 
-    const  { result, loading, error, refetch } = useAxios(
-    "get",
+    const  { result, loading, error, refetch } = useAxiosQuery(
     "http://localhost:3000/api/fetchHistoryData"
     );
 
@@ -15,8 +14,7 @@ const TradesDataProvider = ({children}) => {
         loading: categoriesLoading,
         error: categoriesError,
         refetch: refetchCategories
-    } = useAxios(
-    "get",
+    } = useAxiosQuery(
     "http://localhost:3000/api/fetchStratergiesData"
     );
 

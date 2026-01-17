@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Table from "react-bootstrap/Table";
 import StratergyCell from './StratergyCell';
-import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies';
+import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies.js';
 
-const TradesTable = React.memo(function TradesTable({ rows }){
+const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
+  const [openRow,setOpenRow] = useState("")
   const {stratVisible,
           categoriesLoading,
           categoriesError,
           refetchCategories,
-          createStratergyData,
-          openStrat,
-          closeStrat,
-          categories} = useFetchUpdateStratergies()
+          // openStrat,
+          // closeStrat,
+          categories,
+          addStratergyData,
+          AddStratloading,
+          updateStratergyData,
+          updateStratloading,
+        } = useFetchUpdateStratergies()
   return (
     <Table hover>
                 <thead style={{ position: "sticky", top: 0}}>
@@ -32,7 +37,7 @@ const TradesTable = React.memo(function TradesTable({ rows }){
                   {
                   
                   (rows)?.map((ele, index) => (
-                    <tr key={index}>
+                    <tr key={index} onDoubleClick={()=>{setOpenRow(ele.id);}} >
                       <td>{index + 1}</td>
                       <td>{new Date(ele.created_at).toLocaleDateString()}</td>
                       <td>{ele.contract_type}</td>
@@ -58,16 +63,17 @@ const TradesTable = React.memo(function TradesTable({ rows }){
                       </td>
                       <td>{ele.size}</td>
                       <td>{Number(ele.paid_commission).toFixed(2)}</td>
-                      <td onDoubleClick={()=>{openStrat()}}>
-                        { stratVisible ?
+                      <td >
+                        { 
                           <StratergyCell 
                           id={ele._id} 
                           value={ele.stratergy}
-                          closeStrat = {closeStrat}
+                          closeStrat = {()=>{setOpenRow("")}}
                           categories = {categories}
-                          stratVisible = {stratVisible}
-                           /> :
-                           <td>{ele.stratergy}</td>
+                          stratVisible = {openRow === ele.id}
+                          updateStrat = {updateStratergyData}
+                          refresh = {refresh}
+                           /> 
                         }
                         
                       </td>

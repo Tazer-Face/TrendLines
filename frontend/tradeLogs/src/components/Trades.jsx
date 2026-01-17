@@ -26,11 +26,7 @@ const Trades = () => {
     return {data,...stats}
   },[rows,filters])
 
-  useEffect(()=>{
-    console.log(CurfilteredData)
-  })
 
-  console.log(rows)
   return (
     <div style={{ backgroundColor: "#f9fafb" }}>
       <Container>
@@ -60,6 +56,7 @@ const Trades = () => {
             ) : (
               <TradesTable
                 rows={CurfilteredData.data}
+                refresh = {refetch}
               />
             )}
           </div>
@@ -83,6 +80,13 @@ const Trades = () => {
               onClick={open}
             >
               Filters
+            </Button>
+            <Button
+              className="border-0 shadow-sm rounded-4 p-3"
+              style={{ backgroundColor: "#f9fafb", color: "black" }}
+              onClick={()=>{clear()}}
+            >
+              Clear Filters
             </Button>
              <Button onClick={refetch}
               className="border-0 shadow-sm rounded-4 p-3"

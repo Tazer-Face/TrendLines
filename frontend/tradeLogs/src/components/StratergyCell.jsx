@@ -1,29 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies';
-import { useAxios } from '../customHooks/useAxiosRequests';
+import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies.js';
 
-const StratergyCell = ({id,value,closeStrat,categories,stratVisible}) => {
-  // const {stratVisible,
-  //       categoriesLoading,
-  //       categoriesError,
-  //       refetchCategories,
-  //       createStratergyData,
-  //       openStrat,
-  //       closeStrat,
-  //       categories} = useFetchUpdateStratergies()
 
-  const [data,setData] = useState(value ?? "");
-  const [startergyData,setStartergyData] = useState("")
+const StratergyCell = ({id,value,closeStrat,categories,stratVisible,updateStrat,refresh}) => {
+
+const [data,setData] = useState(value ?? "");
   
-  const  { result, loading, error, refetch } = useAxios("put","http://localhost:3000/api/updateHistoryData",{_id :id , stratergy : startergyData})
-  // const {}
-
-  
-
   function handleChange(e){
-    e.preventDefault();
     const {value} = e.target;
     setData(value)
    }
@@ -31,20 +16,27 @@ const StratergyCell = ({id,value,closeStrat,categories,stratVisible}) => {
   async function handleSubmit(e){
     e.preventDefault();
     console.log(id);
-    setStartergyData(data)
-  }
-  
-  useEffect(()=>{
-    refetch({_id :id , stratergy : startergyData});
-    if(result.success){
+    const payload = {
+      _id : id,
+      stratergy : data === "" ? null : data
+    }
+    const res = await updateStrat(payload);
+    console.log(res);
+    if(res.success){
       alert("Stratergy updated successfully")
       closeStrat();
+      refresh();
     }
     else{
-      if(error.success) alert("Stratergy update unsuccessfully")
+      if(!res.errSuccess){
+           alert("Stratergy update unsuccessful");
+           closeStrat();
+      }
     }
-  },[startergyData])
+  }
   
+
+  if(!stratVisible) return <>{value}</>;
   return (
     
     <>
@@ -55,22 +47,22 @@ const StratergyCell = ({id,value,closeStrat,categories,stratVisible}) => {
             onSubmit={handleSubmit}
           >
             
-            <Form.Group className="mt-4 w-100" controlId="longShort">
+            <Form.Group className="mt-4 w-100" controlId="stratergy">
               <Form.Label>Stratergy</Form.Label>
               <Form.Select
-                name="longShort"
+                name="stratergy"
                 value = {data}
                 onChange={handleChange}
               >
-                <option key={0} value="">No stratergy</option>
+                <option value="">No stratergy</option>
                 { categories?.map((data,key)=>(
-                  <option key={key+1} value={data.stratergyName}>{data.stratergyName}</option>
+                  <option key={key} value={data.stratergyName}>{data.stratergyName}</option>
                   )) 
                 }
               </Form.Select>
             </Form.Group>
             <div className="d-flex flex-column align-items-center justify-content-between flex-xl-row align-items-center justify-content-between w-100 gap-md-3">
-              <Button className="mt-4" variant="primary" onClick={()=>{closeStrat()}} >
+              <Button className="mt-4" type="button" variant="primary" onClick={(e) => {e.stopPropagation();closeStrat();}} >
                 Close
               </Button>
               <Button className="mt-4" type="submit">

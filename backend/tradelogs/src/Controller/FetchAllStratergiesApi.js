@@ -12,7 +12,7 @@ class FetchAllStratergies {
         }
         catch(err){
             console.log("Error fetching Stratergies ");
-            res.status(500).send({success : false ,data : data , message : "Stratergies Data fetching is unsuccessfully"}) 
+            res.status(500).send({success : false ,data : err , message : "Stratergies Data fetching is unsuccessfully"}) 
         }
     }
         

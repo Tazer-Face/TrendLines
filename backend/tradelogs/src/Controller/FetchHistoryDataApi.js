@@ -9,7 +9,7 @@ class GetAllData {
             return res.status(200).send({ success: true, data: data, message: "Data fetched successfully" });
         } catch (err) {
             console.error("Error fetching data: ", err);
-            return res.status(500).send({ success: false, message: "Error fetching data", error: err.message });
+            return res.status(500).send({ success: false, message: "Error fetching data", data: err });
         }
     }
 }

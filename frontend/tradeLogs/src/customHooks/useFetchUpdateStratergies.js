@@ -1,27 +1,23 @@
 import { useContext, useState } from "react"
 import { TradesDataContext } from "../Context/TradesDataContext";
-import { useAxios } from "./useAxiosRequests";
+import { useAxiosMutation } from "./useAxiosRequestsMutation";
 
 export const useFetchUpdateStratergies = ()=>{
 
-    const createStratergyData = (data)=>{
-        const  { result: newCategoriesResult,
-        loading: newCategoriesLoading,
-        error: newCategoriesError } =  useAxios("post","http://localhost:3000/api/fetchStratergiesData",{stratergyName : data});
-        return {newCategoriesResult,newCategoriesLoading,newCategoriesError}
-    }
-    
-    const [stratVisible , setStratVisible] = useState(false);
-    // const [stratData , setStratData] = useState([]);
+        const  {loading : updateStratloading , update : updateStratergy} =  useAxiosMutation("put","http://localhost:3000/api/updateHistoryData");
+
+        const  {loading : AddStratloading, update : AddStratergy} =  useAxiosMutation("post","http://localhost:3000/api/addStratergiesData");
+
     const {categoriesResult,categoriesLoading,categoriesError,refetchCategories} = useContext(TradesDataContext)
     return{
-        openStrat : ()=>setStratVisible(true),
-        closeStrat : ()=>setStratVisible(false),
+
         categories : (categoriesResult.data && categoriesResult.data.length > 0 ) ? categoriesResult.data : [], 
-        stratVisible,
         categoriesLoading,
         categoriesError,
         refetchCategories,
-        createStratergyData
+        updateStratergyData : updateStratergy,
+        updateStratloading,
+        addStratergyData : AddStratergy,
+        AddStratloading
     }
 }

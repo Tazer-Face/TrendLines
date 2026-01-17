@@ -19,7 +19,7 @@ function errorRes(res) {
     }
 
 }
-export const useAxios = (method,url, params={}) => {
+export const useAxiosQuery = (url,params={}) => {
 
   const [result , setResult] = useState({
           success : null,
@@ -33,15 +33,11 @@ export const useAxios = (method,url, params={}) => {
           message : null,
           errorCodeMessage : null
         });
-  const fetechParams = params;
-  async function fetchData(fetechParams={}){
+
+  async function fetchData(){
     try{
         setLoading(true);
-        const res = method === "get" ? await axios.get(url,params) : 
-                    (
-                      method === "post" ? await axios.post(url,fetechParams) : 
-                      (method === "put" ? await axios.put(url,fetechParams) : await axios.delete(url,fetechParams)) 
-                    )
+        const res = await axios.get(url,params) 
          
         setResult({
           success : res.data.success,
@@ -91,8 +87,8 @@ export const useAxios = (method,url, params={}) => {
   }
     
   useEffect(()=>{
-    fetchData(fetechParams);
-  },[method,url])
+    fetchData();
+  },[url,JSON.stringify(params)])
   return {result,loading,error,refetch : fetchData}
 };
 

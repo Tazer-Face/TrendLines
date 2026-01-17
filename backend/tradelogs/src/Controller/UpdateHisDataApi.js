@@ -10,7 +10,7 @@ class UpdateHisDataApi{
         return res.status(201).send({ success: true, message: "Historic data updated successfully" });
        }
        catch(err){
-        return res.status(500).send({ success: false, message: "Error updating historic data", error: err.message });
+        return res.status(500).send({ success: false, message: "Error updating historic data", data: err });
        }
     }
 }

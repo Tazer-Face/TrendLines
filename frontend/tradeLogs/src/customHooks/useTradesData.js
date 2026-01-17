@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useAxios } from "./useAxiosRequests";
 import { TradesDataContext } from "../Context/TradesDataContext";
 
 export const useTradesData = ()=>{
