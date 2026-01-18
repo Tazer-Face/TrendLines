@@ -33,18 +33,41 @@ export const useAxiosMutation = (method, url) => {
           ? await axios.put(url, params)
           : await axios.delete(url, params);
 
-      const {success,data,message,error} = res?.data?.success ? {...res?.data,error :{message : null}} : {};
+      return {
+        success: true,
+        data: res.data.data ?? null,
+        message: res.data.message ?? null,
+        error: null
+      };
 
-
-      return {success,data,message,error}
     } catch (err) {
   
-      const {errSuccess,errData,errMessage,errorCodeMessage} = !err?.response.data.success ? {...(err?.response.data),errorCodeMessage : errorRes(err) }:
-                                                      err.request ? {errSuccess : false , errData : err.request,errMessage : "No response from server" } :
-                                                      err?.response.data
+      if (err.response) {
+        // Server responded (404, 500, etc.)
+        return {
+          success: false,
+          data: err.response.data?.data ?? null,
+          message: err.response.data?.message ?? "Request failed",
+          errorCodeMessage: errorRes(err)
+        };
+      }
 
+      if (err.request) {
+        // No response
+        return {
+          success: false,
+          data: null,
+          message: "No response from server",
+          errorCodeMessage: null
+        };
+      }
 
-      return {errSuccess,errData,errMessage,errorCodeMessage}
+       return {
+        success: false,
+        data: null,
+        message: err.message,
+        errorCodeMessage: null
+      };
     } finally {
       setLoading(false);
     }

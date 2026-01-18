@@ -73,7 +73,7 @@ const Trades = () => {
         </div>
         }
         <div className="mt-1 mb-5 mb-0">
-          <div className="d-flex  align-items-center justify-content-center justify-content-sm-start gap-3">
+          <div className="d-flex flex-column align-items-center justify-content-center flex-sm-row align-items-center justify-content-sm-center justify-content-md-start gap-3">
             <Button
               className="border-0 shadow-sm rounded-4 p-3"
               style={{ backgroundColor: "#f9fafb", color: "black" }}
@@ -88,11 +88,11 @@ const Trades = () => {
             >
               Clear Filters
             </Button>
-             <Button onClick={refetch}
+            <Button onClick={refetch}
               className="border-0 shadow-sm rounded-4 p-3"
-             >
+            >
               Refresh
-              </Button>
+            </Button>
           </div>
         </div>
       </Container>

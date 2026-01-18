@@ -56,9 +56,9 @@ export const useAxiosQuery = (url,params={}) => {
 
         if(err.response){
            setError({
-            success : err.data.success,
-            data : err.data.error,
-            message : err.data.message,
+            success : err.response.data.success,
+            data : err.response.data.error,
+            message : err.response.data.message,
             errorCodeMessage : errorRes(err)
           });    
         }

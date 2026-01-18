@@ -5,18 +5,7 @@ import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStraterg
 
 const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
   const [openRow,setOpenRow] = useState("")
-  const {stratVisible,
-          categoriesLoading,
-          categoriesError,
-          refetchCategories,
-          // openStrat,
-          // closeStrat,
-          categories,
-          addStratergyData,
-          AddStratloading,
-          updateStratergyData,
-          updateStratloading,
-        } = useFetchUpdateStratergies()
+  const { categories,updateStratergyData} = useFetchUpdateStratergies()
   return (
     <Table hover>
                 <thead style={{ position: "sticky", top: 0}}>

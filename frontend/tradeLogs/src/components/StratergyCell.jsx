@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies.js';
+
 
 
 const StratergyCell = ({id,value,closeStrat,categories,stratVisible,updateStrat,refresh}) => {
@@ -28,15 +28,14 @@ const [data,setData] = useState(value ?? "");
       refresh();
     }
     else{
-      if(!res.errSuccess){
-           alert("Stratergy update unsuccessful");
-           closeStrat();
-      }
+      alert("Unable to update stratergy at the moment");
+      closeStrat();
     }
   }
   
+  
 
-  if(!stratVisible) return <>{value}</>;
+  if(!stratVisible) return <>{value}</>
   return (
     
     <>
@@ -75,6 +74,6 @@ const [data,setData] = useState(value ?? "");
     
     
   )
-}
 
+}
 export default StratergyCell
