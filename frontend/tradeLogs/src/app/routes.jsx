@@ -1,14 +1,9 @@
-import { useState } from 'react'
-import './App.css'
-import { Container } from 'react-bootstrap'
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
-import MainLayout from './layout/MainLayout'
-import Trades from './components/Trades'
-import Stats from './components/Stats'
+import MainLayout from '../layout/MainLayout'
+import Trades from '../features/trades/Trades.page'
+import Stats from '../features/stats/Stats'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export const routes = () => {
   return (
     <>
         <Router>
@@ -22,5 +17,3 @@ function App() {
     </>
   )
 }
-
-export default App

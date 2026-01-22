@@ -100,7 +100,7 @@ const TradesFiltersForm = ({symbol,clear,apply,initial,clearData,close}) => {
            <Button className="mt-4" variant="primary" onClick={close}>
             Close
           </Button>
-          <Button className="mt-4" variant="primary" onClick={()=>{setFormData(clearData);clear()}}>
+          <Button className="mt-4" variant="primary" onClick={()=>{clear()}}>
             Clear
           </Button>
           <Button className="mt-4" type="submit">

@@ -43,7 +43,6 @@ export const useAxiosMutation = (method, url) => {
     } catch (err) {
   
       if (err.response) {
-        // Server responded (404, 500, etc.)
         return {
           success: false,
           data: err.response.data?.data ?? null,
@@ -53,7 +52,6 @@ export const useAxiosMutation = (method, url) => {
       }
 
       if (err.request) {
-        // No response
         return {
           success: false,
           data: null,
@@ -62,7 +60,7 @@ export const useAxiosMutation = (method, url) => {
         };
       }
 
-       return {
+      return {
         success: false,
         data: null,
         message: err.message,

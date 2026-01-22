@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-
-
-const StratergyCell = ({id,value,closeStrat,categories,stratVisible,updateStrat,refresh}) => {
+const StrategyCell = ({id,value,closeStrat,categories,stratVisible,updateStrat,refresh}) => {
 
 const [data,setData] = useState(value ?? "");
   
@@ -32,8 +30,6 @@ const [data,setData] = useState(value ?? "");
       closeStrat();
     }
   }
-  
-  
 
   if(!stratVisible) return <>{value}</>
   return (
@@ -76,4 +72,4 @@ const [data,setData] = useState(value ?? "");
   )
 
 }
-export default StratergyCell
+export default StrategyCell

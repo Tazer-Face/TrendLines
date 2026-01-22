@@ -19,7 +19,7 @@ function errorRes(res) {
     }
 
 }
-export const useAxiosQuery = (url,params={}) => {
+export const useAxiosQuery = (url,params=null) => {
 
   const [result , setResult] = useState({
           success : null,
@@ -34,10 +34,11 @@ export const useAxiosQuery = (url,params={}) => {
           errorCodeMessage : null
         });
 
-  async function fetchData(){
+  async function fetchData(params){
     try{
         setLoading(true);
-        const res = await axios.get(url,params) 
+
+        const res = params !== null ? await axios.get(url,params) : await axios.get(url)
          
         setResult({
           success : res.data.success,
@@ -51,8 +52,6 @@ export const useAxiosQuery = (url,params={}) => {
         )
     }
     catch(err){
-
-        setLoading(false);
 
         if(err.response){
            setError({
@@ -88,7 +87,7 @@ export const useAxiosQuery = (url,params={}) => {
     
   useEffect(()=>{
     fetchData();
-  },[url,JSON.stringify(params)])
+  },[url,params])
   return {result,loading,error,refetch : fetchData}
 };
 

@@ -1,14 +1,12 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Button, Container } from "react-bootstrap";
-import { useTradesFilters } from "../customHooks/useTradeFilters";
+import { useTradesHooks } from "./Trades.hooks";
 import TradesFiltersForm from "./TradesFiltersForm";
-import { useTradesData } from "../customHooks/useTradesData";
 import TradesTable from "./TradesTable";
-import { filteredData } from "../Utils/filteredData";
+import { filteredData } from "./Trades.utils";
 
 const Trades = () => {
-  const { visible, filters , clearData , open, close, clear, apply  } = useTradesFilters();
-  const { rows, symbols, loading, error, refetch } = useTradesData();
+  const { visible, filters , clearData , open, close, clear, apply ,rows, symbols, loading, error, refetch  } = useTradesHooks();
 
   const CurfilteredData = useMemo(()=>{
     
@@ -26,7 +24,10 @@ const Trades = () => {
     return {data,...stats}
   },[rows,filters])
 
-
+  const refresh = useCallback(() => {
+    refetch();
+  }, [refetch]);
+  
   return (
     <div style={{ backgroundColor: "#f9fafb" }}>
       <Container>
@@ -44,8 +45,8 @@ const Trades = () => {
 
         ) :
         <div className="border-0 shadow-sm rounded-4 p-4 mb-3 mt-5 bg-white">
-          <div style={{ maxHeight: "53dvh", overflowY: "auto" }}>
-            { (error.message != null ) ? (
+          <div  className="table-scroll">
+            { (error?.message) ? (
               <div className="d-flex justify-content-center align-items-center">
                 <h3>{error.message}</h3>
               </div>
@@ -56,7 +57,7 @@ const Trades = () => {
             ) : (
               <TradesTable
                 rows={CurfilteredData.data}
-                refresh = {refetch}
+                refresh = {refresh}
               />
             )}
           </div>

@@ -1,8 +1,4 @@
-function convertToDate(date){
-const [month,day,year] = date.split("/");
-return new Date(year,month -1,day)
-}
-
+import convertToDate from '../../shared/utils/Date.utils'
 export const filteredData = (rows,filter)=>{
     if (!rows) return [];
     let fromDateC = filter.fromDate !== "" ? convertToDate(filter.fromDate) : null;

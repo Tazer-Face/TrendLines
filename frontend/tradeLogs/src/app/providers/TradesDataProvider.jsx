@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TradesDataContext } from './TradesDataContext';
-import { useAxiosQuery } from '../customHooks/useAxiosRequestsQuery.js';
+import { useAxiosQuery } from '../../shared/hooks/useAxiosRequestsQuery.js';
 
 const TradesDataProvider = ({children}) => {
 

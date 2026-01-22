@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Table from "react-bootstrap/Table";
-import StratergyCell from './StratergyCell';
-import { useFetchUpdateStratergies } from '../customHooks/useFetchUpdateStratergies.js';
+import { useFetchUpdateStrategies } from '../../shared/hooks/useFetchUpdateStrategies.js';
+import StrategyCell from './StrategyCell.jsx';
 
 const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
   const [openRow,setOpenRow] = useState("")
-  const { categories,updateStratergyData} = useFetchUpdateStratergies()
+  const { categories,updateStrategyData} = useFetchUpdateStrategies()
   return (
     <Table hover>
                 <thead style={{ position: "sticky", top: 0}}>
@@ -26,7 +26,7 @@ const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
                   {
                   
                   (rows)?.map((ele, index) => (
-                    <tr key={index} onDoubleClick={()=>{setOpenRow(ele.id);}} >
+                    <tr key={index} onDoubleClick={()=>{setOpenRow(ele._id);}} >
                       <td>{index + 1}</td>
                       <td>{new Date(ele.created_at).toLocaleDateString()}</td>
                       <td>{ele.contract_type}</td>
@@ -54,13 +54,13 @@ const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
                       <td>{Number(ele.paid_commission).toFixed(2)}</td>
                       <td >
                         { 
-                          <StratergyCell 
+                          <StrategyCell
                           id={ele._id} 
                           value={ele.stratergy}
                           closeStrat = {()=>{setOpenRow("")}}
                           categories = {categories}
-                          stratVisible = {openRow === ele.id}
-                          updateStrat = {updateStratergyData}
+                          stratVisible = {openRow === ele._id}
+                          updateStrat = {updateStrategyData}
                           refresh = {refresh}
                            /> 
                         }
