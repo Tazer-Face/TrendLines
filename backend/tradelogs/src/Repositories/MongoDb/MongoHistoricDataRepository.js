@@ -1,9 +1,8 @@
-import UserRepository from "./IUserRepo.js";
-import HistoricData from "../Models/historicData.js";
-import DataInsertionTS from "../Models/DataInsertionTS.js";
-import Stratergy from "../Models/Stratergies.js";
+import DataInsertionTS from "../../Models/DataInsertionTS.js";
+import HistoricDataAbstraction from "../Abstractions/HistoricDataRepository.js";
+import HistoricData from "../../Models/historicData.js";
 
-class MongoDbRepository extends UserRepository {
+class MongoDbHisRepository extends HistoricDataAbstraction {
     async getAllData(){
         try{
             const res = await HistoricData.find({}).sort({ created_at: -1 }).lean();;
@@ -11,6 +10,7 @@ class MongoDbRepository extends UserRepository {
         }
         catch(error){
             console.error("Error fetching historic data: ", error);
+            throw error;
         }
 
     }
@@ -20,15 +20,17 @@ class MongoDbRepository extends UserRepository {
             console.log("Historic data inserted successfully.");
         } catch(error) {
             console.error("Error inserting historic data: ", error);
+            throw error;
         }
     }
 
-    async updateHisData(data){
+    async updateHisData(data,session=undefined){
         try{
-            await HistoricData.updateOne({_id : data._id},{ $set: { stratergy: data.stratergy } });
+            await HistoricData.updateOne({_id : data._id},{ $set: { strategy: data.strategy } },session ? {session} : undefined);
             console.log("History data updated successfully.");
         } catch(error) {
             console.error("Error updating History data: ", error);
+            throw error;
         }
     }
 
@@ -39,6 +41,7 @@ class MongoDbRepository extends UserRepository {
         }
         catch(error){
             console.error("Error fetching historic data: ", error);
+            throw error;
         }
     }
 
@@ -48,24 +51,9 @@ class MongoDbRepository extends UserRepository {
             console.log("Jobs data updated successfully.");
         } catch(error) {
             console.error("Error updating jobs data: ", error);
-        }
-    }
-    async getAllStratergies(){
-        try{
-            const res = await Stratergy.find({}).lean();
-            return res;
-        } catch(error) {
-            console.error("Error fetching all stratergies: ", error);
-        }
-    }
-    async addStratergy(data){
-        try{
-            await Stratergy.insertMany({stratergyName : data});
-            console.log("Inserted new stratergy.");
-        } catch(error) {
-            console.error("Error inserting new stratergy: ", error);
+            throw error
         }
     }
 }
 
-export default MongoDbRepository;
+export default MongoDbHisRepository;

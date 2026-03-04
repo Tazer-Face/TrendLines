@@ -37,10 +37,10 @@ class InsertHisData {
                         stratergy: ""
                     }
                 })
-
         if (data.length === 0) return{"data":0};
         await this.userRepo.addHisData(data);
-        await this.userRepo.addJobsHis(data[0].created_at);          
+        await this.userRepo.addJobsHis(
+            [0].created_at);          
       
     }
 }

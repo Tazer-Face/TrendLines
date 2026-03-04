@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
-const TradesFiltersForm = ({symbol,clear,apply,initial,clearData,close}) => {
+const TradesFiltersForm = ({symbols,clear,apply,filters,close}) => {
 
-   const [formData,setFormData] = useState(initial);
+  const [formData,setFormData] = useState(filters);
 
-   function handleChange(e){
+  function handleChange(e){
     e.preventDefault();
     const {name,value} = e.target;
     setFormData(prev=>({
       ...prev,[name] : value
     }))
-   }
+  }
 
-   function submit(e){
+  function submit(e){
     e.preventDefault();
+    console.log(formData);
     apply(formData)
    }
+
+  useEffect(() => {
+      setFormData(filters);
+  }, [filters]);
 
   return (
     <div style={{minWidth :"170px",maxWidth:"20vw"}}>
@@ -65,7 +70,7 @@ const TradesFiltersForm = ({symbol,clear,apply,initial,clearData,close}) => {
             onChange={handleChange}
           >
             <option value="">Select</option>
-            {symbol?.map((res, key) => (
+            {symbols?.map((res, key) => (
               <option value={res} key={key}>
                 {res}
               </option>
@@ -97,10 +102,10 @@ const TradesFiltersForm = ({symbol,clear,apply,initial,clearData,close}) => {
           </Form.Select>
         </Form.Group>
         <div className="d-flex flex-column align-items-center justify-content-between flex-xl-row align-items-center justify-content-between w-100 gap-md-3">
-           <Button className="mt-4" variant="primary" onClick={close}>
+          <Button className="mt-4" variant="primary" onClick={close}>
             Close
           </Button>
-          <Button className="mt-4" variant="primary" onClick={()=>{clear()}}>
+          <Button className="mt-4" variant="primary" onClick={clear}>
             Clear
           </Button>
           <Button className="mt-4" type="submit">

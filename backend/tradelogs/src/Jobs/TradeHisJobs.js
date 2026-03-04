@@ -37,8 +37,8 @@ export function TradeHisJobs(insertService){
                 
             },
             {
-            scheduled: true,
-            timezone: "UTC"
+                scheduled: true,
+                timezone: "UTC"
             }
         );
     }

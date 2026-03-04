@@ -29,12 +29,12 @@ export default class TradeHistory extends ExternalAPIData{
             const apiKey = process.env.API_KEY;
             const url = process.env.DELTA_URL;
             const allTrades = [];
-            let totalCount,meta,pages=1;
-
-            for ( let i = 0 ; i <  pages ; i++){
+            let meta;
+            let i = 0;
+            do{
+                
                 const path = i === 0 ? sigUrl : `${sigUrl}&after=${meta}`;
-
-                const timestamp = Math.floor(Date.now()/1000).toString();
+                const timestamp = Math.floor(Date.now()/1000 + 5).toString();
                 const signature = generateSignature(apiSecret, timestamp, method, path);
 
                 const res = await axios.get(`${url}${path}`,{
@@ -49,17 +49,13 @@ export default class TradeHistory extends ExternalAPIData{
                 
                 meta = res.data.meta.after;
 
-                if (!meta) break;
-
-                if(i===0){
-                    totalCount = res.data.meta.total_count;
-                    pages = Math.ceil(totalCount/100);
-                }
-            }
-
+                i++;
+            }while(meta)
+                
             return allTrades;
         }
         catch(err){
+            console.log(err);
             console.error("Error fetching data: ", err.response ? err.response.data : err.message);
             return;
         }

@@ -1,23 +1,17 @@
-export default class UserReadRepository {
+export default class HistoricDataAbstraction {
     getAllData(){
         throw new Error("Not implemented");
     }
-    addHisData(){
+    addHisData(data){
         throw new Error("Not implemented");
     }
-    updateHisData(){
+    updateHisData(data,session){
         throw new Error("Not implemented");
     }
     getJobsHis(){
         throw new Error("Not implemented");
     }
-    addJobsHis(){
+    addJobsHis(data){
         throw new Error("Not implemented");
-    }
-    getAllStratergies(){
-        throw new Error("Not implemented")
-    }
-    addStratergy(){
-        throw new Error("Not implemented")
     }
 }

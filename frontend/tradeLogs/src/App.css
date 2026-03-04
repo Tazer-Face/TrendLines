@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Chrome, Edge, Safari */
@@ -28,4 +28,11 @@ main {
 /* Firefox */
 .table-scroll {
   scrollbar-width: none;
+}
+
+
+/*Drop down toggle*/
+
+.dropdown-toggle::after {
+  display: none !important;
 }

@@ -1,4 +1,4 @@
-class FetchAllStratergies {
+class FetchAllStrategies {
     constructor(service){
         this.service = service
     }
@@ -18,5 +18,5 @@ class FetchAllStratergies {
         
 }
 
-export default FetchAllStratergies
+export default FetchAllStrategies
 

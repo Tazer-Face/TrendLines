@@ -16,7 +16,7 @@ const [data,setData] = useState(value ?? "");
     console.log(id);
     const payload = {
       _id : id,
-      stratergy : data === "" ? null : data
+      strategy : data === "" ? null : data
     }
     const res = await updateStrat(payload);
     console.log(res);
@@ -51,7 +51,7 @@ const [data,setData] = useState(value ?? "");
               >
                 <option value="">No stratergy</option>
                 { categories?.map((data,key)=>(
-                  <option key={key} value={data.stratergyName}>{data.stratergyName}</option>
+                  <option key={key} value={data.strategyName}>{data.strategyName}</option>
                   )) 
                 }
               </Form.Select>

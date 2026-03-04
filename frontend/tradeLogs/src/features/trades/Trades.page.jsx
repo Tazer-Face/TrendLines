@@ -4,9 +4,11 @@ import { useTradesHooks } from "./Trades.hooks";
 import TradesFiltersForm from "./TradesFiltersForm";
 import TradesTable from "./TradesTable";
 import { filteredData } from "./Trades.utils";
+import { useFetchUpdateStrategies } from "../../shared/hooks/useFetchUpdateStrategies";
 
 const Trades = () => {
-  const { visible, filters , clearData , open, close, clear, apply ,rows, symbols, loading, error, refetch  } = useTradesHooks();
+  const { visible, apply , symbols , filters , open, clear, rows, loading, error, refetch , close } = useTradesHooks();
+  const { refetchCategories} = useFetchUpdateStrategies();
 
   const CurfilteredData = useMemo(()=>{
     
@@ -24,21 +26,22 @@ const Trades = () => {
     return {data,...stats}
   },[rows,filters])
 
-  const refresh = useCallback(() => {
+  const refresh = useCallback(()=>{
     refetch();
-  }, [refetch]);
-  
+  },[refetch])
+
+  console.log(rows)
+
   return (
     <div style={{ backgroundColor: "#f9fafb" }}>
       <Container>
         {visible ? (
           <div className="d-flex align-items-center justify-content-center">
             <TradesFiltersForm
-              symbol={symbols}
-              clear={clear}
-              apply={apply}
-              initial={filters}
-              clearData = {clearData}
+              symbols = {symbols}
+              clear = {clear}
+              apply = {apply}
+              filters = {filters}
               close = {close}
             />
           </div>
@@ -85,11 +88,11 @@ const Trades = () => {
             <Button
               className="border-0 shadow-sm rounded-4 p-3"
               style={{ backgroundColor: "#f9fafb", color: "black" }}
-              onClick={()=>{clear()}}
+              onClick={clear}
             >
               Clear Filters
             </Button>
-            <Button onClick={refetch}
+            <Button onClick={()=>{refetch();refetchCategories();}}
               className="border-0 shadow-sm rounded-4 p-3"
             >
               Refresh

@@ -1,7 +1,7 @@
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import MainLayout from '../layout/MainLayout'
 import Trades from '../features/trades/Trades.page'
-import Stats from '../features/stats/Stats'
+import Strategy from '../features/strategy/Strategy.page'
 
 export const routes = () => {
   return (
@@ -10,7 +10,7 @@ export const routes = () => {
           <Routes>
             <Route path="/" element={<MainLayout/>}>
               <Route path="/trades" element={<Trades />}/>
-              <Route path="/stats" element={<Stats />}/>
+              <Route path="/strategy" element={<Strategy />}/>
             </Route>
           </Routes>
         </Router>

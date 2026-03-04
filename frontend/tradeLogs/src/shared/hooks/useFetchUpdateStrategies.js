@@ -4,9 +4,7 @@ import { useAxiosMutation } from "./useAxiosRequestsMutation";
 
 export const useFetchUpdateStrategies = ()=>{
 
-        const  {loading : updateStratloading , update : updateStrategy} =  useAxiosMutation("put","http://localhost:3000/api/updateHistoryData");
-
-        const  {loading : AddStratloading, update : AddStrategy} =  useAxiosMutation("post","http://localhost:3000/api/addStratergiesData");
+    const  {loading : updateStratloading , update : updateStrategy} =  useAxiosMutation("put","http://localhost:3000/api/updateHistoryData");
 
     const {categoriesResult,categoriesLoading,categoriesError,refetchCategories} = useContext(TradesDataContext)
     return{
@@ -16,8 +14,6 @@ export const useFetchUpdateStrategies = ()=>{
         categoriesError,
         refetchCategories,
         updateStrategyData : updateStrategy,
-        updateStratloading,
-        addStrategyData : AddStrategy,
-        AddStratloading
+        updateStratloading
     }
 }

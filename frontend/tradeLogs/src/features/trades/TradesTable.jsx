@@ -19,7 +19,7 @@ const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
                     <th>ROE</th>
                     <th>Size</th>
                     <th>Comission</th>
-                    <th>Stratergy</th>
+                    <th>Strategy</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -56,7 +56,7 @@ const TradesTable = React.memo(function TradesTable({ rows ,refresh}){
                         { 
                           <StrategyCell
                           id={ele._id} 
-                          value={ele.stratergy}
+                          value={ele.strategy}
                           closeStrat = {()=>{setOpenRow("")}}
                           categories = {categories}
                           stratVisible = {openRow === ele._id}

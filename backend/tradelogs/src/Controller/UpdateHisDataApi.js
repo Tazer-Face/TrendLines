@@ -5,8 +5,8 @@ class UpdateHisDataApi{
 
     async updateHisData(req,res){
         try{
-        const {_id,stratergy} = req.body
-        await this.insertService.updateHisData({_id,stratergy});
+        const {_id,strategy} = req.body
+        await this.insertService.updateHisData({_id,strategy});
         return res.status(201).send({ success: true, message: "Historic data updated successfully" });
        }
        catch(err){
